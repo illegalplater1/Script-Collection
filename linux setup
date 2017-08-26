@@ -1,3 +1,8 @@
 #command for setting up new development system
 
 # in command line show printenv for environment variable 
+
+go to Maven download page and get the latest version
+extract it in a directory of your choice (/opt or /usr/local or ...)
+set and export the environment variable MAVEN_HOME in your .bashrc
+extend and export the environment variable PATH by $MAVEN_HOME/bin
