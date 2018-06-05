@@ -1,0 +1,64 @@
+import math
+from platform import mac_ver
+
+daysOfMonths = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+def checkLeapYear(year):
+    if (year%4!=0):
+        return False
+    elif(year%100!=0):
+        return True
+    elif(year%400!=0):
+        return False
+    else:
+        return True
+
+
+
+def daysBetweenDates(year1, month1, day1, year2, month2, day2):
+    ##
+    # Your code here. starting year : get left days
+
+
+    day1=getTotaldays(year1,month1,day1)
+    day2=getTotaldays(year2,month2,day2)
+    ##
+    day= math.fabs(day1-day2)
+
+    return day
+
+
+
+def getTotaldays(year1,month1,day1):
+    result= (year1-1)*365
+    for x in range (year1-1):
+        if(checkLeapYear(x)):
+            result=result+1
+    if month1<2:
+        result += day1
+    elif month1==2:
+        result+=daysOfMonths[0]+day1
+    else:
+        for x in range(month1-1):
+            result += daysOfMonths[x]
+        result +=day1
+        if (checkLeapYear(year1)):
+             result=result+1
+    return result
+
+# Test routine
+
+def test():
+    test_cases = [((2012,1,1,2012,2,28), 58),
+                  ((2012,1,1,2012,3,1), 60),
+                  ((2011,6,30,2012,6,30), 366),
+                  ((2011,1,1,2012,8,8), 585 ),
+                  ((1900,1,1,1999,12,31), 36523)]
+    for (args, answer) in test_cases:
+        result = daysBetweenDates(*args)
+        if result != answer:
+            print ("Test with data:", args, "failed",result)
+        else:
+            print ("Test case passed!")
+
+test()
